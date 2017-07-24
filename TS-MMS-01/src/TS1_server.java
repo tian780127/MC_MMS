@@ -8,7 +8,7 @@ import kr.ac.kaist.mms_client.MMSClientHandler;
 import kr.ac.kaist.mms_client.MMSConfiguration;
 
 /** 
-File name : TS1.java
+File name : TS1_server.java
 	Relaying message function for the purpose of testing MMS
 Author : Jin Jeong (jungst0001@kaist.ac.kr)
 Creation Date : 2017-07-23

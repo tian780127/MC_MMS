@@ -6,7 +6,7 @@ import kr.ac.kaist.mms_client.MMSClientHandler;
 import kr.ac.kaist.mms_client.MMSConfiguration;
 
 /** 
-File name : TS1.java
+File name : TS1_client.java
 	Relaying message function for the purpose of testing MMS
 Author : Jin Jeong (jungst0001@kaist.ac.kr)
 Creation Date : 2017-07-23
@@ -27,11 +27,19 @@ public class TS1_client {
 			@Override
 			public void callbackMethod(Map<String, List<String>> headerField, String message) {
 				// TODO Auto-generated method stub
-				System.out.println("Client Side");
+//				System.out.println("Client Side");
 				Iterator<String> iter = headerField.keySet().iterator();
 				while (iter.hasNext()){
 					String key = iter.next();
-					System.out.println(key+":"+headerField.get(key).toString());
+					List<String> contents = headerField.get(key);
+					Iterator<String> citer = contents.iterator();
+					if(key != null)
+						System.out.print(key + ": ");
+					while(citer.hasNext()){
+						String content = citer.next();
+						System.out.print(content + " ");
+					}
+					System.out.println();
 				}
 				System.out.println();
 			}
@@ -45,10 +53,10 @@ public class TS1_client {
 //		data = createDataSize(170);
 //		sender.sendPostMsg(svcMRN, data);
 //
-//		data = createDataSize(17 * 1024);
+		data = createDataSize(20000);
 //		sender.sendPostMsg(svcMRN, data);
 //		
-		data = createDataSize(500 * 1024);
+//		data = createDataSize(500 * 1024);
 		sender.sendPostMsg(svcMRN, data);
 //		
 //		data = testData.createDataSize(2 * 1024 * 1024);

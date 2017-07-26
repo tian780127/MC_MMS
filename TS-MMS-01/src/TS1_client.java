@@ -31,15 +31,7 @@ public class TS1_client {
 				Iterator<String> iter = headerField.keySet().iterator();
 				while (iter.hasNext()){
 					String key = iter.next();
-					List<String> contents = headerField.get(key);
-					Iterator<String> citer = contents.iterator();
-					if(key != null)
-						System.out.print(key + ": ");
-					while(citer.hasNext()){
-						String content = citer.next();
-						System.out.print(content + " ");
-					}
-					System.out.println();
+					System.out.println(key+":"+headerField.get(key).toString());
 				}
 				System.out.println();
 			}

@@ -19,7 +19,7 @@ public class TS3_server {
 		String myMRN = "urn:mrn:imo:imo-no:ts-mms-03-server";
 		String dstMRN = "urn:mrn:imo:imo-no:ts-mms-03-client";
 
-		MMSConfiguration.MMS_URL="127.0.0.1:8088";
+		MMSConfiguration.MMS_URL="10.0.11.1:8088";
 		
 		MMSClientHandler sender = new MMSClientHandler(myMRN);
 		sender.setSender(new MMSClientHandler.ResponseCallback() {

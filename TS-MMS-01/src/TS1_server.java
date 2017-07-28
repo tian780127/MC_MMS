@@ -18,7 +18,7 @@ public class TS1_server {
 	public static void main(String[] args) throws Exception{
 		String myMRN = "urn:mrn:imo:imo-no:ts-mms-01-server";
 
-		MMSConfiguration.MMS_URL="127.0.0.1:8088";
+		MMSConfiguration.MMS_URL="10.0.11.1:8088";
 		
 		MMSClientHandler server = new MMSClientHandler(myMRN);
 		int port = 8907;

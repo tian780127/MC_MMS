@@ -36,6 +36,11 @@ Version : 0.5.9
 	MMS replies message array into JSONArray form. And messages are encoded by URLEncoder, UTF-8.
 	(Secure)MMSPollHandler parses JSONArray and decodes messages by URLDecoder, UTF-8.
 Modifier : Jaehee Ha (jaehee.ha@kaist.ac.kr)
+
+Rev. history : 2017-09-13
+Version : 0.6.0
+	Fixed channel.close() and connection.close() bugs
+Modifier : Jaehee Ha (jaehee.ha@kaist.ac.kr)
 */
 /* -------------------------------------------------------- */
 
@@ -78,6 +83,8 @@ class MessageQueueDequeuer extends Thread{
 	private String svcMRN = null;
 	private MRH_MessageOutputChannel outputChannel = null;
 	private ChannelHandlerContext ctx = null;
+	private Channel channel = null;
+	private Connection connection = null;
 	
 	MessageQueueDequeuer (int sessionId) {
 		this.SESSION_ID = sessionId;
@@ -109,8 +116,8 @@ class MessageQueueDequeuer extends Thread{
 	    try {
 			ConnectionFactory factory = new ConnectionFactory();
 			factory.setHost("localhost");
-			Connection connection = factory.newConnection();
-			Channel channel = connection.createChannel();
+			connection = factory.newConnection();
+			channel = connection.createChannel();
 			channel.queueDeclare(queueName, true, false, false, null);
 			logger.trace("SessionID="+this.SESSION_ID+" Waiting for messages");
 			
@@ -178,8 +185,7 @@ class MessageQueueDequeuer extends Thread{
 						channel.basicNack(delivery.getEnvelope().getDeliveryTag(), false, true);
 					}
 					
-					channel.close();
-					connection.close();
+					
 					//Enroll a delivery listener to the queue channel in order to get a message from the queue.
 					//However, it blocks exactly this thread.
 				}
@@ -236,7 +242,20 @@ class MessageQueueDequeuer extends Thread{
 			logger.warn("SessionID="+this.SESSION_ID+" "+e.getMessage());
 		} 
 	    finally {
-			this.interrupt();
+	    	if (channel != null) {
+	    		try {
+					channel.close();
+				} catch (IOException | TimeoutException e) {
+					logger.warn("SessionID="+this.SESSION_ID+" "+e.getMessage());
+				}
+	    	}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (IOException e) {
+					logger.warn("SessionID="+this.SESSION_ID+" "+e.getMessage());
+				}
+			}
 		}
 		
 		

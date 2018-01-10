@@ -28,6 +28,11 @@ Rev. history : 2017-11-21
 Version : 0.7.0
 	MMSServer will start after waiting initialization of SecureMMSServer.  
 Modifier : Jaehee Ha (jaehee.ha@kaist.ac.kr)
+
+Rev. history : 2018-01-10
+Version : 0.7.1-casting_team
+	Making new branch for casting team.  
+Modifier : Jaehyun Park (jaehyun.park@kaist.ac.kr)
 */
 /* -------------------------------------------------------- */
 
